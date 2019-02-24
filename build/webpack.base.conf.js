@@ -43,6 +43,7 @@ module.exports = {
       ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,
+        // Rule.loader 是 Rule.use: [ { loader } ] 的简写
         loader: 'vue-loader',
         options: vueLoaderConfig
       },

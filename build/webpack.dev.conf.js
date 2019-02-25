@@ -16,7 +16,7 @@ const PORT = process.env.PORT && Number(process.env.PORT)
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     // TODO: 这里的作用是什么？
-    // 生成处理样式的loader配置。
+    // 生成处理样式的loader配置
     rules: utils.styleLoaders({
       // 注意：开发环境不提取css。没有extract项。
       sourceMap: config.dev.cssSourceMap,

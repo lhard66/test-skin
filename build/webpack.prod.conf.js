@@ -13,15 +13,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const env = require('../config/prod.env')
 
-// const themeLoader = [{
-//   test: /\.scss$/,
-//   include: '',
-//   loader: '',
-// }]
-
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
-    // 此
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true,

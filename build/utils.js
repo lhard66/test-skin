@@ -9,12 +9,22 @@ exports.assetsPath = function (_path) {
     ? config.build.assetsSubDirectory
     : config.dev.assetsSubDirectory
 
+  // posix多平台兼容
   return path.posix.join(assetsSubDirectory, _path)
 }
 
-exports.cssLoaders = function (options) {
-  options = options || {}
+// 样式分离打包
+exports.extractCSS = new ExtractTextPlugin({
+  filename: exports.assetsPath('css/[name].[contenthash].css'),
+  allChunks: true,
+});
+exports.extractTheme = new ExtractTextPlugin({
+  filename: exports.assetsPath('css/theme.[contenthash].css'),
+  allChunks: true,
+});
 
+// generate loader string to be used with extract text plugin
+function generateLoaders (options, loader, loaderOptions) {
   const cssLoader = {
     loader: 'css-loader',
     options: {
@@ -32,44 +42,46 @@ exports.cssLoaders = function (options) {
     }
   }
 
-  // generate loader string to be used with extract text plugin
-  function generateLoaders (loader, loaderOptions) {
-    const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
+  const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
 
-    if (loader) {
-      loaders.push({
-        loader: loader + '-loader',
-        options: Object.assign({}, loaderOptions, {
-          sourceMap: options.sourceMap
-        })
+  if (loader) {
+    loaders.push({
+      loader: loader + '-loader',
+      options: Object.assign({}, loaderOptions, {
+        sourceMap: options.sourceMap
       })
-    }
-
-    // Extract CSS when that option is specified
-    // (which is the case during production build)
-    if (options.extract) {
-      return ExtractTextPlugin.extract({
-        // TODO: 为什么有时候用use，有时间用loader？
-        // 因为这里返回的是一个数组，所以要用use
-        // Rule.loader 是 Rule.use: [ { loader } ] 的简写
-        use: loaders,
-        fallback: 'vue-style-loader'
-      })
-    } else {
-      // 最后交由vue-style-loader处理
-      return ['vue-style-loader'].concat(loaders)
-    }
+    })
   }
+
+  // Extract CSS when that option is specified
+  // (which is the case during production build)
+  if (options.extract) {
+    return exports.extractCSS.extract({
+      // TODO: 为什么有时候用use，有时间用loader？
+      // 因为这里返回的是一个数组，所以要用use
+      // Rule.loader 是 Rule.use: [ { loader } ] 的简写
+      use: loaders,
+      fallback: 'vue-style-loader'
+    })
+  } else {
+    // 最后交由vue-style-loader处理
+    // 开发环境返回此数组
+    return ['vue-style-loader'].concat(loaders)
+  }
+}
+
+exports.cssLoaders = function (options) {
+  options = options || {}
 
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
   return {
-    css: generateLoaders(),
-    postcss: generateLoaders(),
-    less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
-    stylus: generateLoaders('stylus'),
-    styl: generateLoaders('stylus')
+    css: generateLoaders(options),
+    postcss: generateLoaders(options),
+    less: generateLoaders(options, 'less'),
+    sass: generateLoaders(options, 'sass', { indentedSyntax: true }),
+    scss: generateLoaders(options, 'sass'),
+    stylus: generateLoaders(options, 'stylus'),
+    styl: generateLoaders(options, 'stylus')
   }
 }
 

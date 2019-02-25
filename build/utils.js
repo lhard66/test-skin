@@ -5,8 +5,8 @@ const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
 
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
+function resolveTheme (fileName = '') {
+  return path.join(__dirname, '..', `src/theme/${fileName}`)
 }
 
 exports.assetsPath = function (_path) {
@@ -25,13 +25,13 @@ exports.extractCSS = new ExtractTextPlugin({
 });
 
 // [ 'black.scss', 'red.scss', 'white.scss' ]
-const themeFileNames = fs.readdirSync(path.resolve('src/theme'));
-const themeFilePaths = themeFileNames.map(name => resolve(`src/theme/${name}`));
-// const themeFilePaths = resolve('src/theme/black.scss')
+const themeFileNames = fs.readdirSync(resolveTheme());
+const themeFilePaths = themeFileNames.map(name => resolveTheme(name));
+// const themeFilePaths = resolveTheme('src/theme/black.scss')
 function extractThemes() {
   return themeFileNames.map(name => {
     return new ExtractTextPlugin({
-      filename: exports.assetsPath(`css/${name}.[contenthash].css`),
+      filename: exports.assetsPath(`css/${path.basename(name, '.scss')}.[contenthash].css`),
       allChunks: true,
     })
   })
@@ -77,7 +77,7 @@ function generateLoaders (options, loader, loaderOptions) {
   // (which is the case during production build)
   if (options.extract) {
     if (options.extractType === 'theme') {
-      console.log('index', options.themeNameIndex);
+      // console.log('index', options.themeNameIndex);
       return exports.extractThemes[options.themeNameIndex].extract({
         // TODO: 为什么有时候用use，有时间用loader？
         // 因为这里返回的是一个数组，所以要用use
@@ -117,23 +117,19 @@ exports.cssLoaders = function (options) {
 }
 // 生成多主题loader
 function themeLoaders(options) {
-  // console.log(extractThemes());
-  console.log(themeFilePaths);
-  console.log(exports.extractThemes);
+  // console.log(extractThemes())
+  // console.log(themeFilePaths)
+  // console.log(resolveTheme())
+  // console.log(themeFileNames);
+  // console.log(exports.extractThemes)
   // 主题css的loader
   options = Object.assign({extractType: 'theme'}, options);
 
-  // return {
-  //   test: /\.scss$/,
-  //   include: resolve('src/theme/red.scss'),
-  //   use: generateLoaders(options, 'sass'),
-  // }
-
   return themeFileNames.map((name, index) => {
-    console.log('name', name);
+    // console.log('name', name);
     return {
       test: /\.scss$/,
-      include: themeFilePaths,
+      include: resolveTheme(name),
       use: generateLoaders(Object.assign(options, {themeNameIndex: index}), 'sass'),
     }
   })
@@ -152,7 +148,6 @@ exports.styleLoaders = function (options) {
       use: loader
     })
   }
-
   return output.concat(themeLoaders(options))
 }
 

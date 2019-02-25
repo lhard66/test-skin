@@ -17,7 +17,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     // TODO: 这里的作用是什么？
     // 生成处理样式的loader配置。
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
+    rules: utils.styleLoaders({
+      sourceMap: config.dev.cssSourceMap,
+      usePostCSS: true
+    })
   },
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,

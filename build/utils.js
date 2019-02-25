@@ -23,6 +23,9 @@ exports.cssLoaders = function (options) {
   }
 
   const postcssLoader = {
+    // 可以支持变量和混入（mixin）
+    // 增加浏览器相关的声明前缀
+    // 把使用将来的 CSS 规范的样式规则转译（transpile）成当前的 CSS 规范支持的格式
     loader: 'postcss-loader',
     options: {
       sourceMap: options.sourceMap
@@ -53,6 +56,7 @@ exports.cssLoaders = function (options) {
         fallback: 'vue-style-loader'
       })
     } else {
+      // 最后交由vue-style-loader处理
       return ['vue-style-loader'].concat(loaders)
     }
   }

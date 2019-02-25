@@ -47,6 +47,8 @@ exports.cssLoaders = function (options) {
     if (options.extract) {
       return ExtractTextPlugin.extract({
         // TODO: 为什么有时候用use，有时间用loader？
+        // 因为这里返回的是一个数组，所以要用use
+        // Rule.loader 是 Rule.use: [ { loader } ] 的简写
         use: loaders,
         fallback: 'vue-style-loader'
       })

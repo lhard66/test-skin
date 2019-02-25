@@ -4,6 +4,10 @@ const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 exports.assetsPath = function (_path) {
   const assetsSubDirectory = process.env.NODE_ENV === 'production'
     ? config.build.assetsSubDirectory
@@ -56,13 +60,22 @@ function generateLoaders (options, loader, loaderOptions) {
   // Extract CSS when that option is specified
   // (which is the case during production build)
   if (options.extract) {
-    return exports.extractCSS.extract({
-      // TODO: 为什么有时候用use，有时间用loader？
-      // 因为这里返回的是一个数组，所以要用use
-      // Rule.loader 是 Rule.use: [ { loader } ] 的简写
-      use: loaders,
-      fallback: 'vue-style-loader'
-    })
+    if (options.extractType === 'theme') {
+      return exports.extractTheme.extract({
+        // TODO: 为什么有时候用use，有时间用loader？
+        // 因为这里返回的是一个数组，所以要用use
+        // Rule.loader 是 Rule.use: [ { loader } ] 的简写
+        use: loaders,
+      })
+    } else {
+      return exports.extractCSS.extract({
+        // TODO: 为什么有时候用use，有时间用loader？
+        // 因为这里返回的是一个数组，所以要用use
+        // Rule.loader 是 Rule.use: [ { loader } ] 的简写
+        use: loaders,
+        fallback: 'vue-style-loader'
+      })
+    }
   } else {
     // 最后交由vue-style-loader处理
     // 开发环境返回此数组
@@ -71,7 +84,8 @@ function generateLoaders (options, loader, loaderOptions) {
 }
 
 exports.cssLoaders = function (options) {
-  options = options || {}
+  // 普通css的loader
+  options = Object.assign({extractType: 'css'}, options);
 
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
   return {
@@ -84,6 +98,17 @@ exports.cssLoaders = function (options) {
     styl: generateLoaders(options, 'stylus')
   }
 }
+// 生成多主题loader
+function themeLoaders(options) {
+  // 主题css的loader
+  options = Object.assign({extractType: 'theme'}, options);
+
+  return {
+    test: /\.scss$/,
+    include: resolve('src/theme/red.scss'),
+    use: generateLoaders(options, 'sass'),
+  }
+}
 
 // Generate loaders for standalone style files (outside of .vue)
 exports.styleLoaders = function (options) {
@@ -94,11 +119,12 @@ exports.styleLoaders = function (options) {
     const loader = loaders[extension]
     output.push({
       test: new RegExp('\\.' + extension + '$'),
+      exclude: resolve('src/theme/red.scss'),
       use: loader
     })
   }
 
-  return output
+  return output.concat(themeLoaders(options))
 }
 
 exports.createNotifierCallback = () => {

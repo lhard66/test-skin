@@ -42,7 +42,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       parallel: true
     }),
     utils.extractCSS,
-    // utils.extractTheme,
+    utils.extractTheme,
     // extract css into its own file
     // new ExtractTextPlugin({
     //   filename: utils.assetsPath('css/[name].[contenthash].css'),

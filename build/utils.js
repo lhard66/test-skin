@@ -46,6 +46,7 @@ exports.cssLoaders = function (options) {
     // (which is the case during production build)
     if (options.extract) {
       return ExtractTextPlugin.extract({
+        // TODO: 为什么有时候用use，有时间用loader？
         use: loaders,
         fallback: 'vue-style-loader'
       })

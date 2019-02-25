@@ -3,12 +3,17 @@
     <button @click="changeSkin('red')">红色</button>
     <button @click="changeSkin('black')">黑色</button>
     <button @click="changeSkin('white')">白色</button>
+
+    <info></info>
   </div>
 </template>
 
 <script>
+import Info from './Info.vue'
+
 export default {
   name: 'App',
+  components: { Info },
   methods: {
     changeSkin (type) {
       if (type === 'red') {

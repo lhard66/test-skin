@@ -1,4 +1,5 @@
 'use strict'
+const fs = require('fs')
 const path = require('path')
 const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -22,10 +23,25 @@ exports.extractCSS = new ExtractTextPlugin({
   filename: exports.assetsPath('css/[name].[contenthash].css'),
   allChunks: true,
 });
-exports.extractTheme = new ExtractTextPlugin({
-  filename: exports.assetsPath('css/theme.[contenthash].css'),
-  allChunks: true,
-});
+
+// [ 'black.scss', 'red.scss', 'white.scss' ]
+const themeFileNames = fs.readdirSync(path.resolve('src/theme'));
+const themeFilePaths = themeFileNames.map(name => resolve(`src/theme/${name}`));
+// const themeFilePaths = resolve('src/theme/black.scss')
+function extractThemes() {
+  return themeFileNames.map(name => {
+    return new ExtractTextPlugin({
+      filename: exports.assetsPath(`css/${name}.[contenthash].css`),
+      allChunks: true,
+    })
+  })
+}
+
+exports.extractThemes = extractThemes();
+// exports.extractTheme = new ExtractTextPlugin({
+//   filename: exports.assetsPath('css/theme.[contenthash].css'),
+//   allChunks: true,
+// });
 
 // generate loader string to be used with extract text plugin
 function generateLoaders (options, loader, loaderOptions) {
@@ -61,7 +77,8 @@ function generateLoaders (options, loader, loaderOptions) {
   // (which is the case during production build)
   if (options.extract) {
     if (options.extractType === 'theme') {
-      return exports.extractTheme.extract({
+      console.log('index', options.themeNameIndex);
+      return exports.extractThemes[options.themeNameIndex].extract({
         // TODO: 为什么有时候用use，有时间用loader？
         // 因为这里返回的是一个数组，所以要用use
         // Rule.loader 是 Rule.use: [ { loader } ] 的简写
@@ -100,14 +117,26 @@ exports.cssLoaders = function (options) {
 }
 // 生成多主题loader
 function themeLoaders(options) {
+  // console.log(extractThemes());
+  console.log(themeFilePaths);
+  console.log(exports.extractThemes);
   // 主题css的loader
   options = Object.assign({extractType: 'theme'}, options);
 
-  return {
-    test: /\.scss$/,
-    include: resolve('src/theme/red.scss'),
-    use: generateLoaders(options, 'sass'),
-  }
+  // return {
+  //   test: /\.scss$/,
+  //   include: resolve('src/theme/red.scss'),
+  //   use: generateLoaders(options, 'sass'),
+  // }
+
+  return themeFileNames.map((name, index) => {
+    console.log('name', name);
+    return {
+      test: /\.scss$/,
+      include: themeFilePaths,
+      use: generateLoaders(Object.assign(options, {themeNameIndex: index}), 'sass'),
+    }
+  })
 }
 
 // Generate loaders for standalone style files (outside of .vue)
@@ -119,7 +148,7 @@ exports.styleLoaders = function (options) {
     const loader = loaders[extension]
     output.push({
       test: new RegExp('\\.' + extension + '$'),
-      exclude: resolve('src/theme/red.scss'),
+      exclude: themeFilePaths,
       use: loader
     })
   }

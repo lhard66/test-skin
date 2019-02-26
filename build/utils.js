@@ -29,7 +29,7 @@ const themeFileNames = fs.readdirSync(resolveTheme());
 function extractThemes() {
   return themeFileNames.map(name => {
     return new ExtractTextPlugin({
-      filename: exports.assetsPath(`css/${path.basename(name, '.scss')}.[contenthash].css`),
+      filename: exports.assetsPath(`css/theme.${path.basename(name, '.scss')}.css`),
       allChunks: true,
     })
   })

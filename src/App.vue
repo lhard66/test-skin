@@ -14,31 +14,33 @@ import Info from './Info.vue'
 export default {
   name: 'App',
   components: { Info },
+  data () {
+    return {
+      currentLink: ''
+    }
+  },
   methods: {
     changeSkin (type) {
-      if (type === 'red') {
-        console.log('red')
-      } else if (type === 'black') {
-        console.log('black')
-      } else if (type === 'white') {
-        console.log('white')
+      console.log(type)
+      this.loadStyle(type)
+    },
+    loadStyle (name) {
+      if (this.currentLink && this.currentLink.dataset.theme === name) return
+
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = `./static/css/theme.${name}.css`
+      link.dataset.theme = name
+      document.head.appendChild(link)
+
+      link.onload = () => {
+        // console.log(link)
+        this.removeLink(this.currentLink)
+        this.currentLink = link
       }
     },
-    loadStyle () {
-      // const link = document.createElement('link');
-      // link.rel = 'stylesheet';
-      // link.href = `./theme-${theme}.css`;
-      // link.dataset.theme = theme;
-      // document.head.appendChild(link);
-      // link.onload = () => {
-      //   this.removeTheme();
-      //   this.setState({
-      //     currentLink: link
-      //   });
-      // }
-    },
-    removeStyle () {
-      //
+    removeLink (el) {
+      if (el) el.parentNode.removeChild(el)
     }
   }
 }

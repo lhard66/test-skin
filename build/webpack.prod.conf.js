@@ -71,6 +71,8 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: config.build.index,
       template: 'index.html',
       inject: true,
+      // 排序主题文件注入index.html
+      excludeChunks: ['themes'],
       minify: {
         removeComments: true,
         collapseWhitespace: true,

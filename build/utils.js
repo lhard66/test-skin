@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
 
 function resolveTheme (fileName = '') {
-  return path.join(__dirname, '..', `src/theme/${fileName}`)
+  return path.join(__dirname, '..', `src/themes/${fileName}`)
 }
 
 exports.assetsPath = function (_path) {

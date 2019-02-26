@@ -32,10 +32,15 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       process.exit(1)
     }
 
+    // 删除theme.js和theme.map无用文件
+    // rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory, 'js/themes.*'), err => {
+    //   if (!err) console.log(chalk.yellow('  themes.js and themes.map was deleted, it is invalid.\n'))
+    // })
+
     console.log(chalk.cyan('  Build complete.\n'))
     console.log(chalk.yellow(
       '  Tip: built files are meant to be served over an HTTP server.\n' +
-      '  Opening index.html over file:// won\'t work.\n'
+      '  Opening index.html over file:// won\'t work.'
     ))
   })
 })

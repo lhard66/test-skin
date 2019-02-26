@@ -25,9 +25,20 @@ export default {
       }
     },
     loadStyle () {
-      // const link = document.createElement('link')
+      // const link = document.createElement('link');
       // link.rel = 'stylesheet';
-      // link.href = '';
+      // link.href = `./theme-${theme}.css`;
+      // link.dataset.theme = theme;
+      // document.head.appendChild(link);
+      // link.onload = () => {
+      //   this.removeTheme();
+      //   this.setState({
+      //     currentLink: link
+      //   });
+      // }
+    },
+    removeStyle () {
+      //
     }
   }
 }

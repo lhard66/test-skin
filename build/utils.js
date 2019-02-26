@@ -26,8 +26,6 @@ exports.extractCSS = new ExtractTextPlugin({
 
 // [ 'black.scss', 'red.scss', 'white.scss' ]
 const themeFileNames = fs.readdirSync(resolveTheme());
-const themeFilePaths = themeFileNames.map(name => resolveTheme(name));
-// const themeFilePaths = resolveTheme('src/theme/black.scss')
 function extractThemes() {
   return themeFileNames.map(name => {
     return new ExtractTextPlugin({
@@ -118,7 +116,6 @@ exports.cssLoaders = function (options) {
 // 生成多主题loader
 function themeLoaders(options) {
   // console.log(extractThemes())
-  // console.log(themeFilePaths)
   // console.log(resolveTheme())
   // console.log(themeFileNames);
   // console.log(exports.extractThemes)
@@ -144,7 +141,7 @@ exports.styleLoaders = function (options) {
     const loader = loaders[extension]
     output.push({
       test: new RegExp('\\.' + extension + '$'),
-      exclude: themeFilePaths,
+      exclude: themeFileNames.map(name => resolveTheme(name)),
       use: loader
     })
   }

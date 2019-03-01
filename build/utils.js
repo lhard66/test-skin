@@ -25,7 +25,7 @@ exports.extractCSS = new ExtractTextPlugin({
 });
 
 // [ 'black.scss', 'red.scss', 'white.scss' ]
-const themeFileNames = fs.readdirSync(resolveTheme());
+const themeFileNames = fs.readdirSync(resolveTheme()).filter(name => name !== 'index.js');
 function extractThemes() {
   return themeFileNames.map(name => {
     return new ExtractTextPlugin({
@@ -117,7 +117,7 @@ exports.cssLoaders = function (options) {
 function themeLoaders(options) {
   // console.log(extractThemes())
   // console.log(resolveTheme())
-  // console.log(themeFileNames);
+  console.log(themeFileNames);
   // console.log(exports.extractThemes)
   // 主题css的loader
   options = Object.assign({extractType: 'theme'}, options);

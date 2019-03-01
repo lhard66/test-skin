@@ -42,6 +42,15 @@ module.exports = {
   module: {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),
+      // {
+      //   loader: 'sass-resources-loader',
+      //   options: {
+      //     // 注册sass全局变量
+      //     resources: [
+      //       resolve('src/styles/common/_variables.scss'),
+      //     ]
+      //   }
+      // },
       {
         test: /\.vue$/,
         // Rule.loader 是 Rule.use: [ { loader } ] 的简写

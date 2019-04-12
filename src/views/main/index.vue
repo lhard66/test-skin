@@ -5,6 +5,13 @@
     <button @click="changeSkin('white')">白色</button>
 
     <info></info>
+    <br/>
+    <router-link to="/home">home</router-link>
+    <router-link to="/page1">page1</router-link>
+    <router-link to="/page2">page2</router-link>
+    <div class="content">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -33,9 +40,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   margin-top: 200px;
   text-align: center;
+}
+.content {
+  height: 100px;
+  line-height: 100px;
+  width: 300px;
+  margin: 40px auto;
+  border: 1px dotted;
 }
 </style>

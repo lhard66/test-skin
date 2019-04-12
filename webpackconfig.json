@@ -23,7 +23,7 @@
 	"module": {
 		"rules": [
 			{
-				"test": {},
+				"test": "/\\.(js|vue)$/",
 				"loader": "eslint-loader",
 				"enforce": "pre",
 				"include": [
@@ -35,7 +35,7 @@
 				}
 			},
 			{
-				"test": {},
+				"test": "/\\.vue$/",
 				"loader": "vue-loader",
 				"options": {
 					"loaders": {
@@ -148,7 +148,7 @@
 				}
 			},
 			{
-				"test": {},
+				"test": "/\\.js$/",
 				"loader": "babel-loader",
 				"include": [
 					"F:\\hualala\\dev\\others\\test-skin\\src",
@@ -157,7 +157,7 @@
 				]
 			},
 			{
-				"test": {},
+				"test": "/\\.(png|jpe?g|gif|svg)(\\?.*)?$/",
 				"loader": "url-loader",
 				"options": {
 					"limit": 10000,
@@ -165,7 +165,7 @@
 				}
 			},
 			{
-				"test": {},
+				"test": "/\\.(mp4|webm|ogg|mp3|wav|flac|aac)(\\?.*)?$/",
 				"loader": "url-loader",
 				"options": {
 					"limit": 10000,
@@ -173,7 +173,7 @@
 				}
 			},
 			{
-				"test": {},
+				"test": "/\\.(woff2?|eot|ttf|otf)(\\?.*)?$/",
 				"loader": "url-loader",
 				"options": {
 					"limit": 10000,
@@ -181,7 +181,7 @@
 				}
 			},
 			{
-				"test": {},
+				"test": "/\\.css$/",
 				"use": [
 					{
 						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
@@ -208,7 +208,7 @@
 				]
 			},
 			{
-				"test": {},
+				"test": "/\\.postcss$/",
 				"use": [
 					{
 						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
@@ -235,7 +235,7 @@
 				]
 			},
 			{
-				"test": {},
+				"test": "/\\.less$/",
 				"use": [
 					{
 						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
@@ -268,7 +268,7 @@
 				]
 			},
 			{
-				"test": {},
+				"test": "/\\.sass$/",
 				"use": [
 					{
 						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
@@ -302,7 +302,7 @@
 				]
 			},
 			{
-				"test": {},
+				"test": "/\\.scss$/",
 				"use": [
 					{
 						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
@@ -335,7 +335,7 @@
 				]
 			},
 			{
-				"test": {},
+				"test": "/\\.stylus$/",
 				"use": [
 					{
 						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
@@ -368,7 +368,7 @@
 				]
 			},
 			{
-				"test": {},
+				"test": "/\\.styl$/",
 				"use": [
 					{
 						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
@@ -421,7 +421,7 @@
 		},
 		{
 			"options": {
-				"test": {},
+				"test": "/\\.js(\\?.*)?$/i",
 				"extractComments": false,
 				"sourceMap": true,
 				"cache": false,
@@ -431,7 +431,7 @@
 						"warnings": false
 					},
 					"output": {
-						"comments": {}
+						"comments": "/^\\**!|@preserve|@license|@cc_on/"
 					}
 				}
 			}
@@ -451,7 +451,7 @@
 						"inline": false
 					}
 				},
-				"assetNameRegExp": {},
+				"assetNameRegExp": "/\\.css$/g",
 				"canPrint": true
 			},
 			"lastCallInstance": {
@@ -459,7 +459,7 @@
 					"assetProcessors": [
 						{
 							"phase": "compilation.optimize-chunk-assets",
-							"regExp": {}
+							"regExp": "/\\.css$/g"
 						}
 					],
 					"canPrint": true

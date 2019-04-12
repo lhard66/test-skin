@@ -11,5 +11,5 @@ fs.writeFile('webpackconfig.json',
   }, '\t'),
   err => {
     if (err) throw err;
-    console.log('配置文件已生成');
+    console.log('  create webpackconfig.json complete.\n');
 });

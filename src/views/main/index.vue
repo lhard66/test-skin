@@ -5,10 +5,12 @@
     <button @click="changeSkin('white')">白色</button>
 
     <info></info>
-    <br/>
-    <router-link to="/home">home</router-link>
-    <router-link to="/page1">page1</router-link>
-    <router-link to="/page2">page2</router-link>
+
+    <div class="navigation">
+      <router-link to="/home">home</router-link>
+      <router-link to="/page">page</router-link>
+    </div>
+
     <div class="content">
       <router-view></router-view>
     </div>
@@ -45,6 +47,11 @@ export default {
   margin-top: 200px;
   text-align: center;
 }
+
+.navigation {
+  margin-top: 40px;
+}
+
 .content {
   height: 100px;
   line-height: 100px;

@@ -53,7 +53,10 @@ const webpackConfig = merge(baseWebpackConfig, {
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
       // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
       // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
-      allChunks: true,
+      // true时会将各个动态加载的.vue文件中的css和其它样式一起打包在css样式文件中。
+      // false时只会打包非动态加载模块的样式，动态加载的样式会通过js来动态生成。
+      allChunks: false,
+      // allChunks: true
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.

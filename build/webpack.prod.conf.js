@@ -15,6 +15,8 @@ const env = require('../config/prod.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
+    // 生成.css、.scss、.less 等样式文件的loader。
+    // 当extract为false，则匹配到的这此拓展名的文件将不被提取到一个独立的css文件中。
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true,
@@ -25,6 +27,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
     path: config.build.assetsRoot,
+    // filename: utils.assetsPath('js/[name].js'),
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
@@ -36,15 +39,16 @@ const webpackConfig = merge(baseWebpackConfig, {
     new UglifyJsPlugin({
       uglifyOptions: {
         compress: {
-          warnings: false
-        }
+          warnings: false,
+        },
       },
       sourceMap: config.build.productionSourceMap,
       parallel: true
     }),
     // extract css into its own file
     new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css'),
+      filename: utils.assetsPath('css/[name].css'),
+      // filename: utils.assetsPath('css/[name].[contenthash].css'),
       // Setting the following option to `false` will not extract CSS from codesplit chunks.
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
       // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
@@ -53,11 +57,11 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
-    new OptimizeCSSPlugin({
-      cssProcessorOptions: config.build.productionSourceMap
-        ? { safe: true, map: { inline: false } }
-        : { safe: true }
-    }),
+    // new OptimizeCSSPlugin({
+    //   cssProcessorOptions: config.build.productionSourceMap
+    //     ? { safe: true, map: { inline: false } }
+    //     : { safe: true }
+    // }),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin

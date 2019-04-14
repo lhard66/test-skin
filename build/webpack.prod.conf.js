@@ -55,8 +55,8 @@ const webpackConfig = merge(baseWebpackConfig, {
       // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
       // true时会将各个动态加载的.vue文件中的css和其它样式一起打包在css样式文件中。
       // false时只会打包非动态加载模块的样式，动态加载的样式会通过js来动态生成。
-      allChunks: false,
-      // allChunks: true
+      // allChunks: false,
+      allChunks: true
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.

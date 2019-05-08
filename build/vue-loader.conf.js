@@ -8,11 +8,11 @@ const sourceMapEnabled = isProduction
 
 module.exports = {
   // 当匹配到.vue文件时，文件内的样式的处理的loader
-  // extract为false时，.vue文件中的样式将不被提取到一个独立的css文件中。
+  // extract为false时，.vue文件中的样式将不被提取到一个独立的css文件中;true而反之。
   loaders: utils.cssLoaders({
     sourceMap: sourceMapEnabled,
-    // extract: false,
-    extract: isProduction
+    extract: true,
+    // extract: isProduction
   }),
   cssSourceMap: sourceMapEnabled,
   cacheBusting: config.dev.cacheBusting,

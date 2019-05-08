@@ -1,3 +1,4 @@
+// npm run themes时，themes文件夹的各个文件分别为一个入口，基于index.scss根据变量的不同生成不同的主题文件。
 @import "../common/variables";
 
 $color-primary: #000000;

@@ -8,7 +8,7 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+// const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const env = require('../config/prod.env')
@@ -16,7 +16,8 @@ const env = require('../config/prod.env')
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     // 生成.css、.scss、.less 等样式文件的loader。
-    // 当extract为false，则匹配到的这此拓展名的文件将不被提取到一个独立的css文件中。
+    // extract为true，抽取配置到的.css、scss、less等拓展名的文件样式;false反之。
+    // 注意：这里不生成.vue文件的loader。
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true,
@@ -53,9 +54,9 @@ const webpackConfig = merge(baseWebpackConfig, {
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
       // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
       // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
-      // true时会将各个动态加载的.vue文件中的css和其它样式一起打包在css样式文件中。
+
+      // true时会将各个动态加载的.vue文件（路由按需加载）中的css和其它样式一起打包在css样式文件中。
       // false时只会打包非动态加载模块的样式，动态加载的样式会通过js来动态生成。
-      // allChunks: false,
       allChunks: true
     }),
     // Compress extracted CSS. We are using this plugin so that possible
@@ -74,7 +75,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       inject: true,
       minify: {
         removeComments: true,
-        collapseWhitespace: true,
+        collapseWhitespace: false,
         removeAttributeQuotes: true
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference

@@ -9,7 +9,7 @@
 .info /deep/ {
   span {
     display: block;
-    color: red;
+    color: $color-second;
   }
   .word {
     font-size: 12px;

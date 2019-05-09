@@ -67,6 +67,9 @@ exports.cssLoaders = function (options) {
     postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
+    // 注意：在vue-loader中配置此变量，vue文件中使用才会生效。
+    // 在scss文件中配置此变量，scss文件中使用才会生产。
+    // 这里代码是两处都进行配置。
     scss: generateLoaders('sass').concat({
       loader: 'sass-resources-loader',
       options: {

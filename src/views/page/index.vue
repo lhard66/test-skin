@@ -4,8 +4,9 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .page {
   font-style: italic;
+  color: $color-second;
 }
 </style>

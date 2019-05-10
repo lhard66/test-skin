@@ -75,8 +75,8 @@ exports.cssLoaders = function (options) {
       options: {
         sourceMap: options.sourceMap,
         resources: [
-          // path.join(__dirname, '../src/styles/common/_variables.scss')
-          path.join(__dirname, '../src/styles/theme/black.scss')
+          path.join(__dirname, '../src/styles/common/_variables.scss')
+          // path.join(__dirname, '../src/styles/theme/black.scss')
         ]
       }
     }),

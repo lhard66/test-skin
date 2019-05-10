@@ -1,10 +1,10 @@
 {
-	"context": "f:\\hualala\\dev\\others\\test-skin",
+	"context": "F:\\hualala\\dev\\others\\test-skin",
 	"entry": {
 		"app": "./src/main.js"
 	},
 	"output": {
-		"path": "f:\\hualala\\dev\\others\\test-skin\\dist",
+		"path": "F:\\hualala\\dev\\others\\test-skin\\dist",
 		"filename": "static/js/[name].[chunkhash].js",
 		"publicPath": "/",
 		"chunkFilename": "static/js/[id].[chunkhash].js"
@@ -17,7 +17,7 @@
 		],
 		"alias": {
 			"vue$": "vue/dist/vue.esm.js",
-			"@": "f:\\hualala\\dev\\others\\test-skin\\src"
+			"@": "F:\\hualala\\dev\\others\\test-skin\\src"
 		}
 	},
 	"module": {
@@ -27,8 +27,8 @@
 				"loader": "eslint-loader",
 				"enforce": "pre",
 				"include": [
-					"f:\\hualala\\dev\\others\\test-skin\\src",
-					"f:\\hualala\\dev\\others\\test-skin\\test"
+					"F:\\hualala\\dev\\others\\test-skin\\src",
+					"F:\\hualala\\dev\\others\\test-skin\\test"
 				],
 				"options": {
 					"emitWarning": true
@@ -101,6 +101,15 @@
 								"options": {
 									"sourceMap": true
 								}
+							},
+							{
+								"loader": "sass-resources-loader",
+								"options": {
+									"sourceMap": true,
+									"resources": [
+										"F:\\hualala\\dev\\others\\test-skin\\src\\styles\\common\\_variables.scss"
+									]
+								}
 							}
 						],
 						"stylus": [
@@ -151,9 +160,9 @@
 				"test": "/\\.js$/",
 				"loader": "babel-loader",
 				"include": [
-					"f:\\hualala\\dev\\others\\test-skin\\src",
-					"f:\\hualala\\dev\\others\\test-skin\\test",
-					"f:\\hualala\\dev\\others\\test-skin\\node_modules\\webpack-dev-server\\client"
+					"F:\\hualala\\dev\\others\\test-skin\\src",
+					"F:\\hualala\\dev\\others\\test-skin\\test",
+					"F:\\hualala\\dev\\others\\test-skin\\node_modules\\webpack-dev-server\\client"
 				]
 			},
 			{
@@ -184,7 +193,7 @@
 				"test": "/\\.css$/",
 				"use": [
 					{
-						"loader": "f:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
+						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
 						"options": {
 							"omit": 1,
 							"remove": true
@@ -211,7 +220,7 @@
 				"test": "/\\.postcss$/",
 				"use": [
 					{
-						"loader": "f:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
+						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
 						"options": {
 							"omit": 1,
 							"remove": true
@@ -238,7 +247,7 @@
 				"test": "/\\.less$/",
 				"use": [
 					{
-						"loader": "f:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
+						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
 						"options": {
 							"omit": 1,
 							"remove": true
@@ -271,7 +280,7 @@
 				"test": "/\\.sass$/",
 				"use": [
 					{
-						"loader": "f:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
+						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
 						"options": {
 							"omit": 1,
 							"remove": true
@@ -305,7 +314,7 @@
 				"test": "/\\.scss$/",
 				"use": [
 					{
-						"loader": "f:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
+						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
 						"options": {
 							"omit": 1,
 							"remove": true
@@ -331,6 +340,15 @@
 						"options": {
 							"sourceMap": true
 						}
+					},
+					{
+						"loader": "sass-resources-loader",
+						"options": {
+							"sourceMap": true,
+							"resources": [
+								"F:\\hualala\\dev\\others\\test-skin\\src\\styles\\common\\_variables.scss"
+							]
+						}
 					}
 				]
 			},
@@ -338,7 +356,7 @@
 				"test": "/\\.stylus$/",
 				"use": [
 					{
-						"loader": "f:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
+						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
 						"options": {
 							"omit": 1,
 							"remove": true
@@ -371,7 +389,7 @@
 				"test": "/\\.styl$/",
 				"use": [
 					{
-						"loader": "f:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
+						"loader": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js",
 						"options": {
 							"omit": 1,
 							"remove": true
@@ -446,14 +464,14 @@
 		{
 			"options": {
 				"template": "index.html",
-				"filename": "f:\\hualala\\dev\\others\\test-skin\\dist\\index.html",
+				"filename": "F:\\hualala\\dev\\others\\test-skin\\dist\\index.html",
 				"hash": false,
 				"inject": true,
 				"compile": true,
 				"favicon": false,
 				"minify": {
 					"removeComments": true,
-					"collapseWhitespace": true,
+					"collapseWhitespace": false,
 					"removeAttributeQuotes": true
 				},
 				"cache": true,
@@ -479,14 +497,14 @@
 			"chunkNames": [
 				"vendor"
 			],
-			"ident": "f:\\hualala\\dev\\others\\test-skin\\node_modules\\webpack\\lib\\optimize\\CommonsChunkPlugin.js0"
+			"ident": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\webpack\\lib\\optimize\\CommonsChunkPlugin.js0"
 		},
 		{
 			"chunkNames": [
 				"manifest"
 			],
 			"minChunks": null,
-			"ident": "f:\\hualala\\dev\\others\\test-skin\\node_modules\\webpack\\lib\\optimize\\CommonsChunkPlugin.js1"
+			"ident": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\webpack\\lib\\optimize\\CommonsChunkPlugin.js1"
 		},
 		{
 			"chunkNames": [
@@ -495,7 +513,7 @@
 			"minChunks": 3,
 			"children": true,
 			"async": "vendor-async",
-			"ident": "f:\\hualala\\dev\\others\\test-skin\\node_modules\\webpack\\lib\\optimize\\CommonsChunkPlugin.js2"
+			"ident": "F:\\hualala\\dev\\others\\test-skin\\node_modules\\webpack\\lib\\optimize\\CommonsChunkPlugin.js2"
 		},
 		{}
 	]

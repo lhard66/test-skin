@@ -74,14 +74,19 @@ exports.cssLoaders = function (options) {
       loader: 'sass-resources-loader',
       options: {
         sourceMap: options.sourceMap,
-        resources: [
-          path.join(__dirname, '../src/styles/common/_variables.scss')
-          // path.join(__dirname, '../src/styles/theme/black.scss')
-        ]
+        resources: getScssVarPaths(),
       }
     }),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
+  }
+}
+
+function getScssVarPaths() {
+  if (global.scssVarPaths) {
+    return global.scssVarPaths
+  } else {
+    return [path.join(__dirname, '../src/styles/common/_variables.scss')]
   }
 }
 

@@ -3,23 +3,31 @@ const utils = require('./utils')
 const config = require('../config')
 const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const vueLoaderConfig = require('./vue-loader.conf')
 const baseWebpackConfig = require('./webpack.base.conf')
 
-function getWebpackConfig() {
+function getWebpackConfig(themeName) {
   /**
    * 0. 先删除theme文件夹，再进行后续删除操作。
    * 1. 处理输入路径问题。
    * 2. 不生成html文件。
    * 3. 动态设置scss变量。
    */
-  // 设置全局变量
-  const webpackConfig = merge(baseWebpackConfig, {
+
+  const webpackConfig = merge.smart(baseWebpackConfig, {
     module: {
-      rules: utils.styleLoaders({
-        sourceMap: config.build.productionSourceMap,
-        extract: true,
-        usePostCSS: true
-      })
+      rules: [
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+          options: vueLoaderConfig()
+        },
+        ...utils.styleLoaders({
+          sourceMap: config.build.productionSourceMap,
+          extract: true,
+          usePostCSS: true
+        })
+      ]
     },
     devtool: config.build.productionSourceMap ? config.build.devtool : false,
     output: {
@@ -27,7 +35,7 @@ function getWebpackConfig() {
     },
     plugins: [
       new ExtractTextPlugin({
-        filename: utils.assetsPath('css/[name].css'),
+        filename: utils.assetsPath(`css/${themeName}css`),
         allChunks: true
       }),
     ]

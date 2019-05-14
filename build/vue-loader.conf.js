@@ -32,22 +32,24 @@ function getCssLoaders(sourceMapEnabled) {
   return cssLoaders;
 }
 
-module.exports = {
+module.exports = function() {
   // 当匹配到.vue文件时，文件内的样式的处理的loader
   // extract为false时，.vue文件中的样式将不被提取到一个独立的css文件中;true而反之。
 
   // loaders: getCssLoaders(sourceMapEnabled),
-  loaders: utils.cssLoaders({
-    sourceMap: sourceMapEnabled,
-    extract: isProduction
-  }),
-  // 给vue文件增加全局scss变量，避免频繁引入
-  cssSourceMap: sourceMapEnabled,
-  cacheBusting: config.dev.cacheBusting,
-  transformToRequire: {
-    video: ['src', 'poster'],
-    source: 'src',
-    img: 'src',
-    image: 'xlink:href'
+  return {
+    loaders: utils.cssLoaders({
+      sourceMap: sourceMapEnabled,
+      extract: isProduction
+    }),
+    // 给vue文件增加全局scss变量，避免频繁引入
+    cssSourceMap: sourceMapEnabled,
+    cacheBusting: config.dev.cacheBusting,
+    transformToRequire: {
+      video: ['src', 'poster'],
+      source: 'src',
+      img: 'src',
+      image: 'xlink:href'
+    }
   }
 }

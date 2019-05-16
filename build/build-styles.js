@@ -23,7 +23,6 @@ function startWebpack(webpackConfig) {
         process.exit(1)
       }
 
-      console.log(chalk.cyan(`  ${path.basename(global.scssVarPaths)} build complete.\n`))
       resolve()
     })
   })
@@ -40,11 +39,20 @@ async function buildStyles() {
     // 2.循环打包样式。
     const styleWebpackConfig = getWebpackConfig(path.basename(name, 'scss'))
     await startWebpack(styleWebpackConfig)
+
+    print(`${path.basename(global.scssVarPaths)} build complete.`)
   }
 
   // 复制css文件夹
   copyStyles()
+  print('copy themes complete.')
   removeStyles()
+  print('remove theme directory complete.')
+  print('over!')
+}
+
+function print(msg) {
+  console.log(chalk.cyan(`  ${msg}\n`))
 }
 
 // 复制css文件夹

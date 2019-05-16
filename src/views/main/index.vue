@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <button @click="changeSkin('red')">红色</button>
-    <button @click="changeSkin('black')">黑色</button>
-    <button @click="changeSkin('white')">白色</button>
+    <button @click="changeTheme('red')">红色</button>
+    <button @click="changeTheme('black')">黑色</button>
+    <button @click="changeTheme('white')">白色</button>
 
     <info></info>
 
@@ -33,10 +33,56 @@ export default {
         console.log('white')
       }
     },
-    loadStyle () {
-      // const link = document.createElement('link')
-      // link.rel = 'stylesheet';
-      // link.href = '';
+    loadStyle (name) {
+      return new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = `/static/css/${name}.css`
+        link.dataset.theme = name
+
+        link.onload = () => {
+          return resolve(link)
+        }
+        link.onerror = () => {
+          return reject(link)
+        }
+
+        document.head.appendChild(link)
+      })
+    },
+    disabledAll (links, exceptLink) {
+      for (let i = 0; i < links.length; i++) {
+        const link = links.item(i)
+        if (exceptLink && exceptLink === link) {
+          exceptLink.disabled = false
+        } else {
+          link.disabled = true
+        }
+      }
+    },
+    changeTheme (name) {
+      // 1. 查找加载样式是否存在。，存在则存储此对象。
+      // 2. 不存在，加载样式，当加载完成，将除此样式外的设置为不可用状态。
+      // 3. 存在，将所有样式设置为不可用，此样式设置为可用。
+      const links = document.getElementsByTagName('link')
+      let themeLink = null
+      for (let i = 0; i < links.length; i++) {
+        const itemLink = links.item(i)
+        if (itemLink.href.includes(`${name}.css`)) {
+          themeLink = itemLink
+        }
+      }
+
+      if (themeLink) {
+        // 存在
+        this.disabledAll(links, themeLink)
+      } else {
+        // 不存在
+        this.loadStyle(name).then(loadLink => {
+          this.disabledAll(links)
+          loadLink.disabled = false
+        })
+      }
     }
   }
 }

@@ -1,4 +1,3 @@
-const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const merge = require('webpack-merge')
@@ -31,7 +30,7 @@ function getWebpackConfig(themeName) {
     },
     devtool: config.build.productionSourceMap ? config.build.devtool : false,
     output: {
-      path: path.resolve(__dirname, '../theme'),
+      path: config.build.assetsStyleRoot,
     },
     plugins: [
       new ExtractTextPlugin({

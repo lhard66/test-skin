@@ -4,6 +4,10 @@ const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
 
+exports.combinePath = function (...filePath) {
+  return path.join(__dirname, ...filePath)
+}
+
 exports.assetsPath = function (_path) {
   const assetsSubDirectory = process.env.NODE_ENV === 'production'
     ? config.build.assetsSubDirectory
@@ -67,9 +71,26 @@ exports.cssLoaders = function (options) {
     postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
+    // 注意：在vue-loader中配置此变量，vue文件中使用才会生效。
+    // 在scss文件中配置此变量，scss文件中使用才会生产。
+    // 这里代码是两处都进行配置。
+    scss: generateLoaders('sass').concat({
+      loader: 'sass-resources-loader',
+      options: {
+        sourceMap: options.sourceMap,
+        resources: getScssVarPaths(),
+      }
+    }),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
+  }
+}
+
+function getScssVarPaths() {
+  if (global.scssVarPaths) {
+    return global.scssVarPaths
+  } else {
+    return [path.join(__dirname, '../src/styles/common/_variables.scss')]
   }
 }
 

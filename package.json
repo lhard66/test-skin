@@ -13,6 +13,7 @@
     "config": "node build/create-config.js"
   },
   "dependencies": {
+    "large-number-plus": "^1.0.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.3"
   },
